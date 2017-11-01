@@ -3,6 +3,7 @@
 
 void PasswordManager::generatePwd(){
     m_pwdVec.clear();
+    m_pwd.clear();
     srand(time(NULL));
 
     char ch;
@@ -11,7 +12,9 @@ void PasswordManager::generatePwd(){
             if(ch > 90)
                 ch += 6;
             m_pwdVec.push_back(ch);
+
+            m_pwd.append(std::to_string(ch));
     }
 
-
+    m_hint = std::string(m_pwdVec.begin(),m_pwdVec.end());
 }

@@ -13,6 +13,8 @@ public:
     std::string getHint() const { return m_hint; }
     bool checkPwd(const std::string& pwd) const { return m_pwd == pwd; }
 
+    std::string getPwd() const { return m_pwd; }
+
 private:
     int m_length;
     std::vector<char> m_pwdVec;
