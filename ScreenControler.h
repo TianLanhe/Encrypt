@@ -1,7 +1,12 @@
 #ifndef SCREEN_CONTROLER_H
 #define SCREEN_CONTROLER_H
 
+#include <Windows.h>
 #include <algorithm>
+
+enum Type {
+	MOUSE, KEYBOARD, UNKNOWN
+};
 
 struct Point {
 	Point(int x, int y) :x(x), y(y) {}
@@ -18,8 +23,8 @@ public:
 	Range() {}
 
 	void setRange(int x1, int y1, int x2, int y2) {
-		m_p1 = Point(std::min(x1, x2), std::min(y1, y2));
-		m_p2 = Point(std::max(x1, x2), std::max(y1, y2));
+		m_p1 = Point(min(x1, x2), min(y1, y2));
+		m_p2 = Point(max(x1, x2), max(y1, y2));
 	}
 
 	int top() { return m_p1.y; }
@@ -37,13 +42,25 @@ private:
 
 class ScreenControler {
 public:
+	ScreenControler();
+
 	void PutCursor();
 	void HideCursor();
 
 	void Goto(const Point& p1) { Goto(p1.x, p1.y); }
 	void Goto(int x, int y);
 
+	Type GetInput();
+	Point GetMousePos();
+	char GetKeyBoardCode();
+
 	void Clear();
+
+private:
+	HANDLE m_handle;
+
+	Point m_mouseinput;
+	char m_keyboardinput;
 
 };
 

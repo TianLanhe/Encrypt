@@ -1,21 +1,26 @@
-#include "Encrypt.h"
-#include <fstream>
+#include "ScreenControler.h"
+#include <iostream>
 using namespace std;
 
 int main() {
-	string infilename;
-	getline(cin, infilename);
-	ifstream in(infilename, ios::binary);
-	if (!in) {
-		cout << infilename << "²»´æÔÚ!" << endl;
+	ScreenControler control;
+	Type type;
+	while (1) {
+		type = control.GetInput();
+		switch (type)
+		{
+		case KEYBOARD:
+			cout << "KEYBOARD" << endl;
+			break;
+		case MOUSE:
+			cout << "MOUSE" << endl;
+			break;
+		default:
+			cout << "UNKNOWN" << endl;
+			break;
+		}
 	}
-	string outfilename;
-	getline(cin, outfilename);
-	EncryptData data;
-	in >> data;
-	data.Decrypt("abc");
-	ofstream out(outfilename, ios::binary);
-	out << data;
+	while (1);
 	return 0;
 }
 
