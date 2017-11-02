@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	PasswordManager pwdMngr = new PasswordMnager();
+	PasswordManager pwdMngr;
 	pwdMngr.generatePwd();
 	cout << pwdMngr.getHint() << endl;
 	cout << pwdMngr.getPwd() << endl;
