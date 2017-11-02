@@ -1,13 +1,13 @@
-#include "PasswordManager.h"
-#include <iostream>
-
+#include "Encrypt.h"
 using namespace std;
 
 int main(){
-	PasswordManager pwdMngr = new PasswordMnager();
-	pwdMngr.generatePwd();
-	cout << pwdMngr.getHint() << endl;
-	cout << pwdMngr.getPwd() << endl;
+	EncryptData data;
+	data.m_data.clear();
+	data.m_bValid = true;
+	for(int i=0;i<1000;++i)
+		data.m_data.push_back(i);
+	data.Encrypt("abcde");
 	return 0;
 }
 
