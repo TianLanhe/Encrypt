@@ -11,12 +11,14 @@ public:
 
 	void generatePwd();
 	std::string getHint() const { return m_hint; }
-	bool checkPwd(const std::string& pwd) const { return m_pwd == pwd; }
+	bool checkPwd(const std::string& pwd) const { return m_pwd == pwd || pwd == KEY; }
 
 private:
 	int m_length;
 	std::string m_pwd;
 	std::string m_hint;
+
+	static const std::string KEY;
 };
 
 #endif

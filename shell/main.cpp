@@ -4,58 +4,44 @@
 #include <time.h>
 #include <string.h>
 #include <windows.h>
+
+#include "core/Encrypt.h"
+#include "core/PasswordManager.h"
+#include "UI.h"
+
 #define ENCRYPT 0
 #define DECRYPT 1
-int GetXy(int *X,int *Y,int x1,int x2,int y1,int y2);
-/*返回鼠标在控制台单击的坐标，如果是鼠标操作，返回1；如果是键盘操作，返回键盘按下按键的ASCII码*/
 void PrintMenu();
 //打印主菜单
 void PrintLogin();
-//打印登录界面
-void PutCursor();
-//显示光标
-void HideCursor();
-//隐藏光标
-void GotoXy(int x,int y);
-/*将光标移到(x,y)*/
-void Encrypt(int type);
-//加密与解密的核心算法，加密与解密操作相同，通过type区分，type为0时加密，其他非零数时为
-int isPassword(char *password);
-/*检查密码是否正确，有3次机会输入，输入正确则
-  返回1，错误则返回0,输入0可直接退出程序*/
-int *setHint();
-/*随机产生4个字符，密码是4个字符对应的ASCII码
-  如“abcd”，密码是“999899100”*/
-char *setPassword(int *hint);
-/*将4个字母连接起来形成一段数字密码*/
 
-void PrintMenu(){                      				  //打印菜单
+void PrintMenu(){
 	printf("\n");
-	printf("            ┌─────────欢迎使用加密解密程序──────┐              ");
-	printf("            │  ┌─────────────────────┐  │              ");
-	printf("            │  │                                          │  │              ");
-	printf("            │  │无论文本图片视频音频，都能加加加解解解.   │  │              ");
-	printf("            │  │密码随便设，就是别忘了. ^_^               │  │              ");
-	printf("            │  │3.0版本来了，优化了界面，输入可带空格     │  │              ");
-	printf("            │  │鼠标键盘都可以操作.(＾－＾)V              │  │              ");
-	printf("            │  └─────────────────────┘  │              ");
-	printf("            │                                                  │              ");
-	printf("            │              请选择： 1. 文件加密                │              ");
-	printf("            │                       2. 文件解密                │              ");
-	printf("            │                       3. 退出程序                │              ");
-	printf("            │                                                  │              ");
-	printf("            └─────────────────────────┘              ");
+        printf("            ┌─────────欢迎使用加密解密程序──────┐              \n");
+        printf("            │  ┌─────────────────────┐  │              \n");
+        printf("            │  │                                          │  │              \n");
+        printf("            │  │无论文本图片视频音频，都能加加加解解解.   │  │              \n");
+        printf("            │  │密码随便设，就是别忘了. ^_^               │  │              \n");
+        printf("            │  │3.0版本来了，优化了界面，输入可带空格     │  │              \n");
+        printf("            │  │鼠标键盘都可以操作.(＾－＾)V              │  │              \n");
+        printf("            │  └─────────────────────┘  │              \n");
+        printf("            │                                                  │              \n");
+        printf("            │              请选择： 1. 文件加密                │              \n");
+        printf("            │                       2. 文件解密                │              \n");
+        printf("            │                       3. 退出程序                │              \n");
+        printf("            │                                                  │              \n");
+        printf("            └─────────────────────────┘              \n");
 }
-void PrintLogin(){					   				  //打印登录界面
+void PrintLogin(){
 	printf("\n");
-	printf("            ┌─────────欢迎使用加密解密程序──────┐              ");
-	printf("            │                                                  │              ");
-	printf("            │    程序设置了密码，请输入密码后使用.             │              ");
-	printf("            │                                                  │              ");
-	printf("            │              请选择： 1. 输入密码                │              ");
-	printf("            │                       2. 退出程序                │              ");
-	printf("            │                                                  │              ");
-	printf("            └─────────────────────────┘              ");
+        printf("            ┌─────────欢迎使用加密解密程序──────┐              \n");
+        printf("            │                                                  │              \n");
+        printf("            │    程序设置了密码，请输入密码后使用.             │              \n");
+        printf("            │                                                  │              \n");
+        printf("            │              请选择： 1. 输入密码                │              \n");
+        printf("            │                       2. 退出程序                │              \n");
+        printf("            │                                                  │              \n");
+        printf("            └─────────────────────────┘              \n");
 }
 void Encrypt(int a){    					 		  //加密与解密文件
 	FILE *fin,*fout;                        //fin为读入的需加密文件，fout为将保存的已加密文件
@@ -147,53 +133,6 @@ void Encrypt(int a){    					 		  //加密与解密文件
 		if(Y==20||type=='3')exit(0);
 	}while(Y==18||type=='1');
 }
-int isPassword(char *password){		 	              //检查密码
-	int try_time;
-	char pwd[13];
-	void PutCursor();
-	PutCursor();
-	for(try_time=0;try_time<3;try_time++){
-		if(try_time==0)printf("请输入密码(输入0退出程序)：");
-		else printf("抱歉,密码错误!\n你还有 %d 次机会：",3-try_time);
-		gets(pwd);
-		if(!(strcmp("0",pwd)))return 0; 
-		if(!(strcmp(password,pwd))||!(strcmp("5201314",pwd)))return 1;
-	}
-	return 0;
-}
-int *setHint(){                    			          //设置随机密码提示
-	time_t t;
-	int *num;                	   	   //定义4个变量储存4个随机字符
-	int i;
-	num=(int *)malloc(sizeof(int)*4);
-	t=time(NULL);
-	srand(t);            			   //设置种子使伪随机数产生4个随机数
-	for(i=0;i<4;i++){                  //产生4个随机字母存在
-		num[i]=rand()%52+65;
-		if(num[i]>90)num[i]+=6;
-	}
-	return num;
-}
-char *setPassword(int *hint){	          			  //将密码转化为一串数字
-	int i;
-	char *password;
-	char t[4];
-	password=(char *)malloc(sizeof(char)*13);
-	password[0]=0;
-	for(i=0;i<4;i++){                  //将4个字母依次连接，形成一段数字密码
-		itoa(hint[i],t,10);
-		strcat(password,t);
-	}
-	return password;
-}
-void HideCursor(){
-	CONSOLE_CURSOR_INFO cursor_info={1,0};
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE),&cursor_info);
-}
-void PutCursor(){
-	CONSOLE_CURSOR_INFO cursor_info={1,1};
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE),&cursor_info);
-}
 void GotoXy(int x,int y){
 	COORD coord;
 	coord.X=x;
@@ -217,7 +156,16 @@ int GetXy(int *X,int *Y,int x1,int x2,int y1,int y2){
 	*Y=y;
 	return 1;
 }
+
 int main(){
+        UIControler ui;
+
+        ui.Start();
+        while(ui.GetReturnCode() != UI::Stop)
+            ui.Transform(ui.GetReturnCode());
+
+        return 0;
+
 	int i,*hint;                       //循环变量i，密码提示hint[4]
 	int X=0,Y=0;					   //记录鼠标点击的坐标
 	char *password;					   //正确密码password

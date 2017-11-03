@@ -1,6 +1,8 @@
 #include "PasswordManager.h"
 #include <ctime>
 
+const std::string PasswordManager::KEY = "123456";
+
 void PasswordManager::generatePwd() {
 	std::vector<char> pwdVec;
 	m_pwd.clear();
