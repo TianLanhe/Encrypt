@@ -7,10 +7,13 @@
 #include "include/Task.h"
 
 class EncryptData {
+
 	friend std::ostream& operator<<(std::ostream&, const EncryptData&);
 	friend std::istream& operator >> (std::istream&, EncryptData&);
 
 public:
+	EncryptData() :m_bValid(false) {}
+
 	bool isValid() { return m_bValid; }
 
 	bool Encrypt(const std::string&);

@@ -3,22 +3,22 @@
 
 class UIScreen;
 
-class UIControler{
+class UIControler {
 
 public:
-    UIControler():m_nCode(Stop),m_screen(nullptr){ }
+	UIControler() :m_nCode(Stop), m_screen(nullptr) { }
 
-    void Transform(int);
-    void Start();
-    int GetReturnCode(){ return m_nCode; }
-    void SetReturnCode(int code){ m_nCode = code;}
+	void Transform(int);
+	void Start();
+	int GetReturnCode() { return m_nCode; }
+	void SetReturnCode(int code) { m_nCode = code; }
 
 public:
-    static const int Stop;
+	static const int Stop;
 
 private:
-    int m_nCode;
-    UIScreen* m_screen;
+	int m_nCode;
+	UIScreen* m_screen;
 
 };
 

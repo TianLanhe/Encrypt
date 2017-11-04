@@ -4,17 +4,17 @@
 class UIScreen;
 class UIControler;
 
-class UIScreenFactory{
+class UIScreenFactory {
 
 public:
-    static UIScreenFactory* GetInstance();
+	static UIScreenFactory* GetInstance();
 
-    UIScreen* GetStartScreen(UIControler*);
+	UIScreen* GetStartScreen(UIControler*);
 
 private:
-    UIScreenFactory();
+	UIScreenFactory() {}
 
-    static UIScreenFactory* instance;
+	static UIScreenFactory* instance;
 
 };
 

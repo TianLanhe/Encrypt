@@ -3,21 +3,21 @@
 
 #include "UIControler.h"
 
-class UIScreen{
+class UIScreen {
 
 public:
-    UIScreen(UIControler* c):m_controler(c){}
-    virtual ~UIScreen(){}
+	UIScreen(UIControler* c) :m_controler(c) {}
+	virtual ~UIScreen() {}
 
-    virtual void Start() = 0;
-    virtual UIScreen* Transform(int) = 0;
+	virtual void Start() = 0;
+	virtual UIScreen* Transform(int) = 0;
 
 protected:
-    void _SetReturnCode(int code){
-        m_controler->SetReturnCode(code);
-    }
+	void _SetReturnCode(int code) {
+		m_controler->SetReturnCode(code);
+	}
 
-    UIControler* m_controler;
+	UIControler* m_controler;
 
 };
 

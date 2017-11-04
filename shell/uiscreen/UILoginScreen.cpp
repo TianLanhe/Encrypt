@@ -2,88 +2,74 @@
 #include "UIMainScreen.h"
 #include "../../core/PasswordManager.h"
 #include <iostream>
+#include <conio.h>
 
 using namespace std;
 
-enum Code{
-    LOGIN
+enum Code {
+	LOGIN
 };
 
-void UILoginScreen::_PrintLoginMenu(){
-    cout << endl;
-    cout << "            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€æ¬¢è¿Žä½¿ç”¨åŠ å¯†è§£å¯†ç¨‹åºâ”€â”€â”€â”€â”€â”€â”              " << endl;
-    cout << "            â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚              " << endl;
-    cout << "            â”‚  â”‚                                          â”‚  â”‚              " << endl;
-    cout << "            â”‚  â”‚æ— è®ºæ–‡æœ¬å›¾ç‰‡è§†é¢‘éŸ³é¢‘ï¼Œéƒ½èƒ½åŠ åŠ åŠ è§£è§£è§£.   â”‚  â”‚              " << endl;
-    cout << "            â”‚  â”‚å¯†ç éšä¾¿è®¾ï¼Œå°±æ˜¯åˆ«å¿˜äº†. ^_^               â”‚  â”‚              " << endl;
-    cout << "            â”‚  â”‚3.0ç‰ˆæœ¬æ¥äº†ï¼Œä¼˜åŒ–äº†ç•Œé¢ï¼Œè¾“å…¥å¯å¸¦ç©ºæ ¼     â”‚  â”‚              " << endl;
-    cout << "            â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚              " << endl;
-    cout << "            â”‚                                                  â”‚              " << endl;
-    cout << "            â”‚              è¯·é€‰æ‹©ï¼š 1. æ–‡ä»¶åŠ å¯†                â”‚              " << endl;
-    cout << "            â”‚                       2. æ–‡ä»¶è§£å¯†                â”‚              " << endl;
-    cout << "            â”‚                       3. é€€å‡ºç¨‹åº                â”‚              " << endl;
-    cout << "            â”‚                                                  â”‚              " << endl;
-    cout << "            â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              " << endl;
-
-
-    cout << endl;
-    cout << "            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€æ¬¢è¿Žä½¿ç”¨åŠ å¯†è§£å¯†ç¨‹åºâ”€â”€â”€â”€â”€â”€â”              " << endl;
-    cout << "            â”‚                                                  â”‚              " << endl;
-    cout << "            â”‚    ç¨‹åºè®¾ç½®äº†å¯†ç ï¼Œè¯·è¾“å…¥å¯†ç åŽä½¿ç”¨.             â”‚              " << endl;
-    cout << "            â”‚                                                  â”‚              " << endl;
-    cout << "            â”‚              è¯·é€‰æ‹©ï¼š 1. è¾“å…¥å¯†ç                 â”‚              " << endl;
-    cout << "            â”‚                       2. é€€å‡ºç¨‹åº                â”‚              " << endl;
-    cout << "            â”‚                                                  â”‚              " << endl;
-    cout << "            â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              " << endl;
+void UILoginScreen::_PrintLoginMenu() {
+	cout << endl;
+	cout << "            ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤»¶Ó­Ê¹ÓÃ¼ÓÃÜ½âÃÜ³ÌÐò©¤©¤©¤©¤©¤©¤©´              " << endl;
+	cout << "            ©¦                                                  ©¦              " << endl;
+	cout << "            ©¦    ³ÌÐòÉèÖÃÁËÃÜÂë£¬ÇëÊäÈëÃÜÂëºóÊ¹ÓÃ.             ©¦              " << endl;
+	cout << "            ©¦                                                  ©¦              " << endl;
+	cout << "            ©¦              ÇëÑ¡Ôñ£º 1. ÊäÈëÃÜÂë                ©¦              " << endl;
+	cout << "            ©¦                       2. ÍË³ö³ÌÐò                ©¦              " << endl;
+	cout << "            ©¦                                                  ©¦              " << endl;
+	cout << "            ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼              " << endl;
 }
 
-UIScreen* UILoginScreen::Transform(int code){
-    switch(code){
-    case LOGIN:
-        return new UIMainScreen(m_controler);
-    default:
-        return nullptr;
-    }
+UIScreen* UILoginScreen::Transform(int code) {
+	switch (code) {
+	case LOGIN:
+		return new UIMainScreen(m_controler);
+	default:
+		return nullptr;
+	}
 }
 
-void UILoginScreen::Start(){
-    _PrintLoginMenu();
-    cout << "è¯·è¾“å…¥æ­£ç¡®é€‰é¡¹å¹¶æŒ‰å›žè½¦ç¡®å®š:";
+void UILoginScreen::Start() {
+	_PrintLoginMenu();
+	cout << "ÇëÊäÈëÕýÈ·Ñ¡Ïî²¢°´»Ø³µÈ·¶¨£º";
 
-    int code = -1;
-    while(cin >> code && code != 1 && code != 2)
-        cout << "è¯·è¾“å…¥æ­£ç¡®çš„é€‰é¡¹:";
+	int code = -1;
+	while (cin >> code && code != 1 && code != 2)
+		cout << "ÇëÊäÈëÕýÈ·µÄÑ¡Ïî£º";
 
-    if(code != 1)
-    {
-        _SetReturnCode(UIControler::Stop);
-    }else{
-        _EnterPassword();
-    }
+	if (code != 1)
+		_SetReturnCode(UIControler::Stop);
+	else
+		_EnterPassword();
 }
 
-void UILoginScreen::_EnterPassword(){
-    PasswordManager pwdmgr;
-    pwdmgr.generatePwd();
+void UILoginScreen::_EnterPassword() {
+	PasswordManager pwdmgr;
+	pwdmgr.generatePwd();
 
-    cout << "å¯†ç æç¤ºï¼š" << pwdmgr.getHint() << endl;
+	cout << "ÃÜÂëÌáÊ¾£º" << pwdmgr.getHint() << endl;
 
-    string pwd;
-    for(int try_time = 3; try_time != 0;--try_time){
-        if(try_time == 3)
-            cout << "è¯·è¾“å…¥å¯†ç (æŒ‰0é€€å‡ºç¨‹åº)ï¼š";
-        else
-            cout << "æŠ±æ­‰ï¼Œå¯†ç é”™è¯¯ï¼" << endl << "ä½ è¿˜æœ‰ " << try_time << " æ¬¡æœºä¼šï¼š";
+	string pwd;
+	for (int try_time = 3; try_time != 0; --try_time) {
+		if (try_time == 3)
+			cout << "ÇëÊäÈëÃÜÂë(°´0ÍË³ö³ÌÐò)£º";
+		else
+			cout << "±§Ç¸£¬ÃÜÂë´íÎó£¡" << endl << "Äã»¹ÓÐ " << try_time << " ´Î»ú»á£º";
 
-        cin >> pwd;
+		cin >> pwd;
 
-        if(pwd == "0"){
-            _SetReturnCode(UIControler::Stop);
-            break;
-        }else if(pwdmgr.checkPwd(pwd)){
-            _SetReturnCode(LOGIN);
-            break;
-        }
-    }
-    _SetReturnCode(UIControler::Stop);
+		if (pwd == "0") {
+			_SetReturnCode(UIControler::Stop);
+			return;
+		}
+		else if (pwdmgr.checkPwd(pwd)) {
+			cout << "ÃÜÂëÕýÈ·£¡(°´ÈÎÒâ¼ü½øÈë²Ëµ¥)";
+			getch();
+			_SetReturnCode(LOGIN);
+			return;
+		}
+	}
+	_SetReturnCode(UIControler::Stop);
 }

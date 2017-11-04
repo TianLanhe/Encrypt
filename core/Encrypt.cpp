@@ -23,6 +23,7 @@ istream& operator >> (istream& in, EncryptData& data) {
 
 		in.seekg(start);
 		in.read(reinterpret_cast<char*>(data.m_data.data()), data.m_data.size());
+		data.m_bValid = true;
 	}
 	return in;
 }
@@ -32,6 +33,7 @@ bool EncryptData::Encrypt(const string& pwd) {
 		return false;
 
 	ThreadPool* pool = ThreadPoolFactory::GetInstance()->GetThreadPool();
+	//pool->SetThreadsNum(4);
 
 	string::size_type pwdlen = pwd.size();
 	int threadNum = pool->GetThreadsNum();
