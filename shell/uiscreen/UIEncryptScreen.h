@@ -1,14 +1,13 @@
 #ifndef UI_ENCRYPT_SCREEN_H
 #define UI_ENCRYPT_SCREEN_H
 
-#include "../include/UIScreen.h"
+#include "EncryptOrDecryptScreen.h"
 
-class UIEncryptScreen : public UIScreen {
+class UIEncryptScreen : public EncryptOrDecryptScreen {
 
 public:
-	UIEncryptScreen(UIControler* controler) :UIScreen(controler) {}
+	UIEncryptScreen(UIControler* controler) :EncryptOrDecryptScreen("º”√‹", controler) {}
 
-	void Start();
 	UIScreen* Transform(int);
 
 };
