@@ -12,6 +12,9 @@ public:
 public:
 	void Start();
 
+private:
+	std::string _GetPassword(char ch = '\0');
+
 protected:
 	std::string m_oper;
 

@@ -33,26 +33,27 @@ bool EncryptData::Encrypt(const string& pwd) {
 		return false;
 
 	ThreadPool* pool = ThreadPoolFactory::GetInstance()->GetThreadPool();
-	//pool->SetThreadsNum(4);
+	pool->SetThreadsNum(4);
 
 	string::size_type pwdlen = pwd.size();
 	int threadNum = pool->GetThreadsNum();
 
-	int units = m_data.size() / pwdlen;
-	int bytes = m_data.size() % pwdlen;
-	int units_one = units / threadNum;
-	int units_leave = units % threadNum;
+	typedef vector<unsigned char>::size_type vec_size_type;
+	vec_size_type units = m_data.size() / pwdlen;
+	vec_size_type bytes = m_data.size() % pwdlen;
+	vec_size_type units_one = units / threadNum;
+	vec_size_type units_leave = units % threadNum;
 
-	int units_total = 0;
-	int units_real;
-	int start, end;
+	vec_size_type units_total = 0;
+	vec_size_type units_real;
+	vec_size_type start, end;
 	for (int i = 0; i < threadNum; ++i) {
 		units_real = units_one;
 		if (i < units_leave)
 			++units_real;
 
 		start = units_total * pwdlen;
-		end = units_real * pwdlen;
+		end = units_real * pwdlen + start;
 
 		units_total += units_real;
 
@@ -96,8 +97,3 @@ Status CalcTask::Run() {
 	}
 	return OK;
 }
-
-
-
-
-

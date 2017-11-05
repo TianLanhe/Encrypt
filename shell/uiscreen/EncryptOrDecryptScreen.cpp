@@ -2,10 +2,31 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <conio.h>
+#include <vector>
 #include "../../core/Encrypt.h"
 #include "ScreenControler.h"
 
 using namespace std;
+
+string EncryptOrDecryptScreen::_GetPassword(char echo) {
+	vector<char> vec;
+	char ch;
+	while ((ch = getch()) != '\n' && ch != '\r') {
+		if (ch == '\b') {
+			cout << "\b \b";
+			vec.pop_back();
+		}
+		else {
+			vec.push_back(ch);
+
+			if (echo)
+				cout << echo;
+		}
+	}
+	cout << endl;
+	return string(vec.begin(),vec.end());
+}
 
 void EncryptOrDecryptScreen::Start() {
 	ScreenControler sc;
@@ -47,20 +68,26 @@ void EncryptOrDecryptScreen::Start() {
 	string pwd;
 	string pwd_check;
 	do {
-		cout << "请输入" << m_oper << "的密码(不长于15位)：";
-		getline(cin, pwd);
-		/*	while ((length = strlen(password)) > 15) {
-		printf("对不起，密码长于15位，请重新输入（输入0返回菜单）：");
-		fflush(stdin);
-		gets(password);
-		if (!(strcmp(password, "0"))) {
-		fclose(fin);
-		fclose(fout);
-		return;
+		cout << "请输入" << m_oper << "的密码(6~15位)：";
+		pwd = _GetPassword('*');
+
+		while (pwd.size() < 6 || pwd.size() > 15)
+		{
+			if (pwd.size() < 6)
+				cout << "对不起，密码位数小于6位，请重新输入（输入0返回菜单）：";
+			else
+				cout << "对不起，密码位数长于15位，请重新输入（输入0返回菜单）：";
+
+			pwd = _GetPassword('*');
+			if (pwd == "0") {
+				_SetReturnCode(MAIN);
+				return;
+			}
 		}
-		}*/
+
 		cout << "请再次输入" << m_oper << "的密码：";
-		getline(cin, pwd_check);
+		pwd_check = _GetPassword('*');
+
 		if (pwd != pwd_check)
 			cout << "两次输入的密码不一致，请重新输入！" << endl;
 	} while (pwd != pwd_check);
