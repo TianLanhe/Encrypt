@@ -7,11 +7,7 @@ class UIControler {
 
 public:
 	UIControler() :m_nCode(Stop), m_screen(nullptr) { }
-        ~UIControler()
-        {
-            if(m_screen)
-                delete m_screen;
-        }
+	~UIControler();
 
 	void Transform(int);
 	void Start();
