@@ -1,6 +1,5 @@
 #include "../include/UIScreenFactory.h"
 #include "UILoginScreen.h"
-#include "UIMainScreen.h"
 
 UIScreenFactory* UIScreenFactory::instance = new UIScreenFactory();
 
@@ -9,6 +8,5 @@ UIScreenFactory* UIScreenFactory::GetInstance() {
 }
 
 UIScreen* UIScreenFactory::GetStartScreen(UIControler* controler) {
-	//return new UILoginScreen(controler);
-	return new UIMainScreen(controler);
+	return new UILoginScreen(controler);
 }

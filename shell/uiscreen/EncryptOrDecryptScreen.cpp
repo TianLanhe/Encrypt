@@ -14,7 +14,8 @@ string EncryptOrDecryptScreen::_GetPassword(char echo) {
 	char ch;
 	while ((ch = getch()) != '\n' && ch != '\r') {
 		if (ch == '\b') {
-			cout << "\b \b";
+			if(echo)
+				cout << "\b \b";
 			vec.pop_back();
 		}
 		else {

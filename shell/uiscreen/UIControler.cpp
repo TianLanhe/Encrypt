@@ -14,7 +14,8 @@ void UIControler::Start() {
 
 void UIControler::Transform(int code) {
 	UIScreen* screen = m_screen->Transform(code);
-	delete m_screen;
+        if(m_screen)
+            delete m_screen;
 	m_screen = screen;
 	m_screen->Start();
 }
