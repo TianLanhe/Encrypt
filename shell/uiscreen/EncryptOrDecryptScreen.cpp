@@ -31,6 +31,13 @@ string EncryptOrDecryptScreen::_GetPassword(char echo) {
 	return string(vec.begin(), vec.end());
 }
 
+void EncryptOrDecryptScreen::_adjustOutputFileName(const string& instr, string& outstr) {
+	if (outstr.find('.') != string::npos || instr.rfind('.') == string::npos)
+		return;
+
+	outstr.append(instr.substr(instr.rfind('.')));
+}
+
 void EncryptOrDecryptScreen::Start() {
 	ScreenControler sc;
 	Point p = sc.GetCursor();	//如果重复操作，用于光标回到原来的位置
@@ -55,6 +62,7 @@ void EncryptOrDecryptScreen::Start() {
 	string outfilename;
 	cout << "请输入" << m_oper << "后的文件名及其路径：";
 	getline(cin, outfilename);
+	_adjustOutputFileName(filename, outfilename);
 
 	fstream test;
 	test.open(outfilename, ios::in);
@@ -65,6 +73,7 @@ void EncryptOrDecryptScreen::Start() {
 		else
 			cout << outfilename << "已存在，请重新输入：";
 		getline(cin, outfilename);
+		_adjustOutputFileName(filename, outfilename);
 		test.open(outfilename, ios::in);
 	}
 
@@ -95,25 +104,25 @@ void EncryptOrDecryptScreen::Start() {
 			cout << "两次输入的密码不一致，请重新输入！" << endl;
 	} while (pwd != pwd_check);
 
-	cout << "正在" << m_oper << "...";
 
 	EncryptData data;
+	cout << "正在读取文件..." << endl;
 	in >> data;
+
+	cout << "正在" << m_oper << "..." << endl;
 	bool result = data.Encrypt(pwd);
 
 	if (!result) {
-		cout << endl;
 		cout << "文件 \"" << filename << "\"" << m_oper << "失败" << endl;
 	}
 	else {
 		ofstream outfile(outfilename, ios::binary);
 		if (!outfile) {
-			cout << endl;
 			cout << "无法创建输出文件 \"" << outfilename << "\"，" << m_oper << "失败！" << endl;
 		}
 		else {
+			cout << "正在保存" << m_oper << "后的文件..." << endl;
 			outfile << data;
-			cout << endl;
 			cout << "文件 \"" << filename << "\"" << m_oper << "成功，保存在 \"" << outfilename << "\" ！" << endl;
 		}
 	}

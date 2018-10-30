@@ -89,7 +89,6 @@ CalcTask::CalcTask(vec* data, size_type start, size_type end) :m_data(data), m_s
 
 Status CalcTask::Run() {
 	CHECK_ERROR(!m_pwd.empty() && m_data);
-
 	string::size_type pwdlen = m_pwd.size();
 	string::size_type j = 0;
 	for (size_type i = m_start; i != m_end; ++i) {

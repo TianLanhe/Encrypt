@@ -14,6 +14,7 @@ public:
 
 private:
 	std::string _GetPassword(char ch = '\0');
+	void _adjustOutputFileName(const std::string&, std::string&);
 
 protected:
 	std::string m_oper;
