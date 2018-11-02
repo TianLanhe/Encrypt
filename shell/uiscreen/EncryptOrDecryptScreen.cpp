@@ -109,6 +109,16 @@ void EncryptOrDecryptScreen::Start() {
 	cout << "正在读取文件..." << endl;
 	in >> data;
 
+	cout << "文件大小：";
+	double size = data.size();
+	const char *unit[] = { "","KB","MB","GB" };
+	int count = 0;
+	while(size > 1024){
+		size /= 1024;
+		++count;
+	}
+	cout << size << unit[count] << endl;
+
 	cout << "正在" << m_oper << "..." << endl;
 	bool result = data.Encrypt(pwd);
 

@@ -14,10 +14,12 @@ class EncryptData {
 public:
 	EncryptData() :m_bValid(false) {}
 
-	bool isValid() { return m_bValid; }
+	bool isValid() const { return m_bValid; }
 
 	bool Encrypt(const std::string&);
 	bool Decrypt(const std::string& pwd) { return Encrypt(pwd); }
+
+	size_t size() const { return m_data.size(); }
 
 private:
 	bool m_bValid;
